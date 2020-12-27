@@ -6,13 +6,25 @@ from django_extensions.db.fields import AutoSlugField
 class Region(models.Model):
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
+
 class Country(models.Model):
     name = models.CharField(max_length=255)
     region = models.ForeignKey(Region, on_delete=models.RESTRICT, null=True)
 
+    def __str__(self):
+        return self.name
+
+
 class City(models.Model):
     name = models.CharField(max_length=255)
     country = models.ForeignKey(Country, on_delete=models.RESTRICT)
+
+    def __str__(self):
+        return "{}, {}".format(self.name, self.country)
+
 
 class Gym(TimeStampedModel, models.Model):
     name = models.CharField(max_length=255)
@@ -42,4 +54,5 @@ class Gym(TimeStampedModel, models.Model):
     state_code = models.CharField(blank=True, max_length=15)
     full_state = models.CharField(blank=True, max_length=255)
 
-
+    def __str__(self):
+        return "{}-{}".format(self.name, self.city)
