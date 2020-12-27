@@ -18,4 +18,9 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class GymSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Gym
-        fields = ['name', 'website']
+        fields = [
+            'name',
+            'slug',
+            'photo',
+            'website',
+        ]

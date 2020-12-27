@@ -7,7 +7,11 @@
     <section>
       <ul>
         <li v-for="gym in gyms" :key="gyms.name">
+          <NuxtLink
+            :to="{ name: 'gym-slug', params: { slug: gym.slug} }"
+          >
             {{ gym.name }}
+          </NuxtLink>
         </li>
       </ul>
     </section>
