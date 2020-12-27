@@ -8,16 +8,16 @@ class Region(models.Model):
 
 class Country(models.Model):
     name = models.CharField(max_length=255)
-    region = models.ForeignKeyField(Region)
+    region = models.ForeignKey(Region, on_delete=models.RESTRICT)
 
 class City(models.Model):
     name = models.CharField(max_length=255)
-    country = models.ForeignKeyField(Country)
+    country = models.ForeignKey(Country, on_delete=models.RESTRICT)
 
 class Gym(TimeStampedModel, models.Model):
     name = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='name')
-    city = models.ForeignKeyField(City)
+    city = models.ForeignKey(City, on_delete=models.RESTRICT)
 
     website = models.URLField(blank=True)
     photo = models.URLField(blank=True)
