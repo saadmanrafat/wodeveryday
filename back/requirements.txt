@@ -3,3 +3,4 @@ djangorestframework
 ipython
 django-extensions
 Werkzeug
+requests
