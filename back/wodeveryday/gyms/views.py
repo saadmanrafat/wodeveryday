@@ -31,4 +31,3 @@ class GymViewSet(viewsets.ModelViewSet):
     """
     queryset = Gym.objects.all()
     serializer_class = GymSerializer
-    permission_classes = [permissions.IsAuthenticated]
