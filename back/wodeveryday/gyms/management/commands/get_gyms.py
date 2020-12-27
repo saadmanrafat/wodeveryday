@@ -8,21 +8,13 @@ class Command(BaseCommand):
 
     BASE_URL = 'https://www.crossfit.com/cf/find-a-box.php?page={page}&country=&state=&city=&type=Commercial'
 
-    def handle(self, *args, **options):
-        page = 1
-        endpoint = self.BASE_URL.format(page=page)
-        response = requests.get(endpoint)
-        data = response.json()
-        affiliates = data['affiliates']
-        affiliate = affiliates[2]
-
+    def get_or_create_gym(self, affiliate):
         country, _ = Country.objects.get_or_create(name=affiliate.get('country', ''))
         city, _ = City.objects.get_or_create(
             name=affiliate.get('city', ''),
             country=country
             )
         lat, lon = affiliate.get('latlon', '').split(',')
-
         gym, created = Gym.objects.get_or_create(
             name=affiliate['name'],
             city=city,
@@ -48,4 +40,15 @@ class Command(BaseCommand):
             state_code=affiliate.get('state_code', ''),
             full_state=affiliate.get('full_state', ''),
              )
+        return gym, created
+
+    def handle(self, *args, **options):
+        page = 1
+        endpoint = self.BASE_URL.format(page=page)
+        response = requests.get(endpoint)
+        data = response.json()
+        affiliates = data['affiliates']
+        for affiliate in affiliates:
+            self.get_or_create_gym(affiliate)
+
 
