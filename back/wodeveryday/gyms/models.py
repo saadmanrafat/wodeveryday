@@ -8,7 +8,7 @@ class Region(models.Model):
 
 class Country(models.Model):
     name = models.CharField(max_length=255)
-    region = models.ForeignKey(Region, on_delete=models.RESTRICT)
+    region = models.ForeignKey(Region, on_delete=models.RESTRICT, null=True)
 
 class City(models.Model):
     name = models.CharField(max_length=255)
