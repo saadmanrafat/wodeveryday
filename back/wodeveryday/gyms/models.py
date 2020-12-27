@@ -14,6 +14,9 @@ class Country(models.Model):
     name = models.CharField(max_length=255)
     region = models.ForeignKey(Region, on_delete=models.RESTRICT, null=True)
 
+    class Meta:
+        verbose_name_plural = "Countries"
+
     def __str__(self):
         return self.name
 
@@ -21,6 +24,9 @@ class Country(models.Model):
 class City(models.Model):
     name = models.CharField(max_length=255)
     country = models.ForeignKey(Country, on_delete=models.RESTRICT)
+
+    class Meta:
+        verbose_name_plural = "Cities"
 
     def __str__(self):
         return "{}, {}".format(self.name, self.country)
