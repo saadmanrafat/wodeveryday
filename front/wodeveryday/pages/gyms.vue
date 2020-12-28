@@ -10,7 +10,8 @@
           <NuxtLink
             :to="{ name: 'gym-slug', params: { slug: gym.slug} }"
           >
-            {{ gym.name }}
+            <span>{{ gym.name }}</span>
+            <img :src="gym.photo" />
           </NuxtLink>
         </li>
       </ul>
