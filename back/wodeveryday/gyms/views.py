@@ -1,8 +1,11 @@
 from django.shortcuts import render
 
 from django.contrib.auth.models import User, Group
+
 from rest_framework import viewsets
 from rest_framework import permissions
+from django_filters.rest_framework import DjangoFilterBackend
+
 from .serializers import UserSerializer, GroupSerializer, GymSerializer
 from .models import Gym
 
@@ -31,3 +34,7 @@ class GymViewSet(viewsets.ModelViewSet):
     """
     queryset = Gym.objects.all()
     serializer_class = GymSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = {
+        'slug': ['iexact']
+    }
